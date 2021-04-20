@@ -1,0 +1,18 @@
+<aura:component >
+    <aura:attribute name="recordId" type="String" default="a005g00002qLuurAAC"/>
+	<lightning:card iconName="custom:custom19" title="Read Only lightning:recordForm">
+        <div class="slds-p-left_large slds-p-right_medium">	
+            <lightning:recordForm aura:id="recordViewForm" 
+                                  objectApiName="Picklist_DB__c"
+                                  columns="2"
+                                  fields="Name,State__c, City__c"
+                                  recordId="a005g00002qLuurAAC"
+                                  layoutType ="Full"
+                                  mode="readonly"
+                                  />   
+        <!-- Neutral variant (default) -->
+    <lightning:button label="Edit" title="Edit" onclick="{! c.handleEditClick }"/>    
+            
+        </div>
+    </lightning:card>
+</aura:component>

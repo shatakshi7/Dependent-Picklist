@@ -1,0 +1,137 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"
+                access="global"
+                controller="dependentPicklist_UpdateCtrl">
+   
+    <aura:handler name="init" value="this" action="{!c.doInit}"/>
+    <!--aura:handler event="force:refreshView" action="{!c.isRefreshed}" /-->
+    
+    <aura:attribute name="showSpinner" type="Boolean" default="false" />
+    <aura:attribute name="listControllingValues" type="list" default="[]" description="to store controller field values"/>
+    <aura:attribute name="listDependingValues" type="list" default="['--- None ---']" description="to store dependent field values"/>
+    <aura:attribute name="depnedentFieldMap" type="map" description="map to store dependent values with controlling value"/>
+    <aura:attribute name="controllingFieldMap" type="map" description=""/>
+    <aura:attribute name="bDisabledDependentFld" type="boolean" default="true"/> 
+    <aura:attribute name="bDisabledControllerFld" type="boolean" default="true"/> 
+    <aura:attribute name="value1" type="List" default="[]"/>
+    <aura:attribute name="value2" type="List" default="[]"/>
+    <aura:attribute name="value0" type="List" default="[]"/>
+    <aura:attribute name="options" type="list" default="[]"/> 
+    <aura:attribute name="option1" type="list" default="[]"/>
+    <aura:attribute name="option2" type="list" default="[]"/>
+    
+    <aura:attribute name="option1x" type="list" default="[]"/>
+    <aura:attribute name="option2x" type="list" default="[]"/>
+    <aura:attribute name="totalDependent" type="Integer" default="2"/>
+     <aura:attribute name="truthy" type="boolean" default="true"/>
+    
+    <c:showSpinnerCmp show="{!v.showSpinner}"/>
+    
+   
+    
+    <!-- Picklist Form -->
+    <aura:if isTrue="{!v.truthy}">
+        
+    <div class="slds-align_absolute-center" style="height:5rem">
+      <lightning:button class="slds-button slds-button_brand" label="Edit" title="Edit" onclick="{! c.handleEditClick1 }"/>  
+    </div>   
+        <div class="slds-box">
+         <div class="slds-box" style="background-color: #D3D3D3" >
+        <div class="slds-align_absolute-center" style="font-size:15px; height:1rem; font-weight: bold;">State-City Picklist</div>
+        </div>
+       
+     <lightning:recordViewForm recordId="{!v.recordId}" objectApiName="Picklist_DB__c">
+        <div class="slds-box">
+            
+            <lightning:outputField fieldName="State__c" />
+               
+            <lightning:outputField fieldName="City__c" />
+            
+                
+        </div>
+    </lightning:recordViewForm>
+        </div>
+         
+    
+    
+    
+    <aura:set attribute="else">
+       
+    <!--Multipicklist-->
+    <!-- call doInit function on component load -->  
+ 
+   
+   
+    <!-- aura attributes-->  
+    
+ 
+    <!--Buttons-->
+    <div class="slds-box">
+    <div class="slds-align_absolute-center" style="height:5rem">
+        
+    <!-- Neutral variant (default) -->
+    
+    <!-- Neutral variant (default) -->
+    <lightning:button variant="success" label="Save" title="Save" onclick="{! c.handleSaveClick }"/>
+    <!-- Neutral variant (default) -->
+        &nbsp;&nbsp;&nbsp;&nbsp;
+    <lightning:button variant="destructive" label="Cancel" title="Cancel" onclick="{! c.handleCancelClick }"/>    
+  
+        </div>  
+          
+    <div class="slds-align_absolute-center" style="height:17rem">   
+    <!--Controller Field-->
+        
+    <lightning:layoutItem size="10" >    
+        <label class="final-com-label" style="margin-right: 0.5rem;">State</label>
+        <lightning:dualListbox class="slds-col slds-size_10-of-4" name="controllerFld"
+                          label=""
+                          sourceLabel="Available Options"
+                          selectedLabel="Selected Options"                     
+                          options="{!v.options}"
+                          value="{!v.value0}"     
+                          onchange="{!c.onControllerFieldChange}"
+                            
+                               
+                               >
+ 
+        </lightning:dualListbox>
+    </lightning:layoutItem>
+        
+        </div>
+    <div class="slds-align_absolute-center" style="height:17rem">       
+    <!--Dependent Field-->
+        
+    <lightning:layoutItem size="10" >    
+        <label class="final-com-label" style="margin-right: 0.5rem;">City</label>
+        <lightning:dualListbox class="slds-col slds-size_10-of-4" name="dependentFld"
+                          options="{!v.option1}"
+                          sourceLabel="Available Options"
+                          selectedLabel="Selected Options" 
+                          value="{!v.value1}"        
+                          label=""
+                          onchange="{!c.onOption1FieldChange}"     
+                           
+                          >
+ 
+        </lightning:dualListbox>
+    </lightning:layoutItem>
+     </div>
+    <div class="slds-align_absolute-center" style="height:17rem">   
+    <!--Dependent Field-->
+    <lightning:layoutItem size="10" >
+        <label class="final-com-label" style="margin-right: 0.5rem;">Monuments</label>
+        <lightning:dualListbox class="slds-col slds-size_10-of-4" name="dependentFld2"
+                          options="{!v.option2}"
+                          sourceLabel="Available Options"
+                          selectedLabel="Selected Options"          
+                          label=""
+                          
+                              >
+ 
+        </lightning:dualListbox>
+    </lightning:layoutItem>
+      </div>
+        </div>
+   </aura:set>
+ </aura:if> 
+</aura:component>
