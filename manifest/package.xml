@@ -32,5 +32,14 @@
         <members>*</members>
         <name>StaticResource</name>
     </types>
+     <types>
+        <members>*</members>
+        <name>CustomMetadata</name>
+    </types>
+    <types>
+    <members>Picklist_DB__c</members>
+    <name>CustomObject</name>
+    </types>
+
     <version>51.0</version>
 </Package>
